@@ -1,2 +1,15 @@
 <% title("Home Page") %>
 <h1><i class="fa fa-home"></i> Home Page <small>views/pages/home.html.erb</small></h1>
+
+<!-- This is where the single page app gets rendered -->
+<div id="main"></div>
+
+<script id="appView-template" type="text/x-template">
+  <h2>Recent Trips</h2>
+  <ul id="trips"></ul>
+</script>
+
+<script id = 'tripListView-template' type='text/x-underscore-template'>
+<h3> {{ location }} </h3>
+</script>
+
