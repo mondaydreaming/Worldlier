@@ -1,4 +1,12 @@
 Worldlier::Application.routes.draw do
+  resources :blogs
+
+  resources :notes
+
+  resources :places
+
+  resources :trips
+
   root "pages#home"
   get "home", to: "pages#home", as: "home"
   get "inside", to: "pages#inside", as: "inside"
