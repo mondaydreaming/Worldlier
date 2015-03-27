@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   end
   
 # Relations
+has_many :trips
+has_many :blogs
+has_many :notes
 has_many :posts
 
   # Include default devise modules. Others available are:
