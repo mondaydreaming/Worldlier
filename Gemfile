@@ -35,7 +35,9 @@ group :development, :test do
 
   # Spring: https://github.com/rails/spring
   gem 'spring', '1.3.3'
+  gem 'rspec-rails', '~>3.0'
 end
+
 
 
 # PostgreSQL
