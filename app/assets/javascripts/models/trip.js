@@ -2,12 +2,12 @@ var app = app || {};
 
 // Create model 
 app.Trip = Backbone.Model.extend({
-  urlRoot: '',
+  urlRoot: '/trips',
   defaults: {
     sightsnum: 5, 
     location: 'London',
     location_radius: 50,
-    tag: 'Historical',
+    tag: 'Historical'
     // user_id: '' - are associations required?
   }
 });

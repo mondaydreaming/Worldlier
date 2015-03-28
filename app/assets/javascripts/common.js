@@ -1,7 +1,7 @@
 // Initiate a new object for all elements going forward
 var app = app || {};
 
-app.userTrips = new app.Trips();
+app.trips = new app.Trips();
 
 $(document).ready(function(){
   // On pages where there is no main div, return nothing
@@ -15,30 +15,7 @@ $(document).ready(function(){
     interpolate: /\{\{(.+?)\}\}/g
   };
 
-  app.userTrips.fetch().done(function(){
+
     app.appRouter = new app.AppRouter();
     Backbone.history.start();
-  });
-
-
-
-
-
-
-
-
-
-
-
-
 })
-
-
-
-// var ready = function() {
-
-// }
-
-
-// $(document).ready(ready);
-// $(document).on('page:load', ready);

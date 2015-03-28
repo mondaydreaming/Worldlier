@@ -4,6 +4,28 @@
 <!-- This is where the single page app gets rendered -->
 <div id="main"></div>
 
+<script id="searchTemplate" type= 'text/x-underscore-template'>
+  <form>
+    <div class="form-group">
+      <label for="location">Where do you want to travel to?</label>
+      <input type="text" class="form-control" id="location">
+    </div>
+    <div class="form-group">
+      <label for="radius">How far beyond that place do you wish to explore?</label>
+      <input type="number" class="form-control" id="radius">
+    </div>
+    <div class="form-group">
+      <label for="place_tag">What type of places are you interested in?</label>
+      <input type="text" class="form-control" id="place_tag">
+    </div>    
+    <div class="form-group">
+      <label for="number_sights">How many places do you wish to visit?</label>
+      <input type="number" class="form-control" id="number_sights">
+    </div>     
+    <button class="search btn btn-default">Create Trip</button>
+  </form>
+</script>
+
 <script id="appView-template" type="text/x-template">
   <h2>Recent Trips</h2>
   <ul id="trips"></ul>
