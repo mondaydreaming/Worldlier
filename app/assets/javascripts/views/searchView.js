@@ -23,19 +23,13 @@ app.SearchView = Backbone.View.extend({
       location_radius: radius,
       tag: placeTag,
     });
-    saveTrip.save();
+    saveTrip.save().done(function(trip){
+      app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
+    })
     app.trips.add(saveTrip);
     this.$('.form-control').val('');
-    app.appRouter.navigate('trips/'+ this.model.get(id) ) // need to pass id in on the router function for viewTrip
   }
 })
-
-saveTrip.save().done(function (trip) {
- ...
- navigate('/trips/' + trip.id, {trigger: true});
-});
-
-
 
 
 
