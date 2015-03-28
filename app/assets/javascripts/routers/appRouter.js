@@ -20,11 +20,11 @@ app.AppRouter = Backbone.Router.extend ({
   //   appView.render()
   // },
 
-  // viewTrip :function() {
-  //   var trip = app.userTrips.get(id);
-  //   var tripView = new app.TripView({model: trip});
-  //   tripView.render();
-  // },
+  viewTrip :function(id) {
+    var trip = app.trips.get(id);
+    var tripView = new app.TripView({model: trip});
+    tripView.render();
+  },
 
   // viewPlace :function() {
   //   //render the place view

@@ -26,6 +26,6 @@ app.SearchView = Backbone.View.extend({
     saveTrip.save();
     app.trips.add(saveTrip);
     this.$('.form-control').val('');
-    // navigate to the trip page
+    app.appRouter.navigate('trips/'+ this.model.get(id) ) // need to pass id in on the router function for viewTrip
   }
 })
