@@ -5,12 +5,17 @@
  */
 @import "railsbricks_custom";
 
-// Place all the styles related to the Trips controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// GOOGLE MAPS CSS
+html, body {
+  height: 100%;
+  margin: 0;
+}
+#map{
+  height: 100%;
+  margin: 0;
+}
 
-// Per agency 
-
+// STYLING FOR TIMELINE OF TRIP
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 body {

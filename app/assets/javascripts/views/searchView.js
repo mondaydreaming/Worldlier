@@ -29,3 +29,14 @@ app.SearchView = Backbone.View.extend({
     app.appRouter.navigate('trips/'+ this.model.get(id) ) // need to pass id in on the router function for viewTrip
   }
 })
+
+saveTrip.save().done(function (trip) {
+ ...
+ navigate('/trips/' + trip.id, {trigger: true});
+});
+
+
+
+
+
+
