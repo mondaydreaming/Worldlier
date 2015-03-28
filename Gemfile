@@ -10,6 +10,7 @@ gem 'jquery-rails', '4.0.3'
 # gem 'turbolinks', '2.5.3'
 gem 'jbuilder', '2.2.11'
 gem 'bcrypt', '3.1.10'
+gem 'geocoder'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
