@@ -24,9 +24,10 @@ app.SearchView = Backbone.View.extend({
       tag: placeTag,
     });
     saveTrip.save().done(function(trip){
+      app.trips.add(saveTrip);
+      debugger;
       app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
     })
-    app.trips.add(saveTrip);
     this.$('.form-control').val('');
   }
 })

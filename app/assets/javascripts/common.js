@@ -14,8 +14,6 @@ $(document).ready(function(){
   _.templateSettings = {
     interpolate: /\{\{(.+?)\}\}/g
   };
-
-
     app.appRouter = new app.AppRouter();
     Backbone.history.start();
 })

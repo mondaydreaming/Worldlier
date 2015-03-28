@@ -98,13 +98,15 @@
     </div>
     <div class="col-md-6">
       <p>Render trip directions and google map</p>
-      //GOOGLE MAPS API
       <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
       <div id="map"></div>
     </div>
   </div>
 </script>
 
+<script id="placeViewTemplate" type='text/x-underscore-template'>
+  <h2>Render place view </h2>
+</script>
 
 
 <script id="appView-template" type="text/x-template">
@@ -113,6 +115,6 @@
 </script>
 
 <script id = 'tripListView-template' type='text/x-underscore-template'>
-<h3> {{ location }} </h3>
+  <h3> {{ location }} </h3>
 </script>
 
