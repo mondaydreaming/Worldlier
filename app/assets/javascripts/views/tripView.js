@@ -32,8 +32,7 @@ app.TripView = Backbone.View.extend({
       var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
       var markerOptions = {
-        // pass in dynamic values for latlng from the database
-      position: new google.maps.LatLng(lat, lng)
+        position: new google.maps.LatLng(lat, lng)
       };
 
       var marker = new google.maps.Marker(markerOptions);
