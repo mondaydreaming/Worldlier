@@ -28,9 +28,13 @@ app.SearchView = Backbone.View.extend({
       app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
     })
     this.$('.form-control').val('');
+
+    // Also generate places from google api and save to the database here so that you can render on the next page
+
+    
   }
 })
 
 
-
+// https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&key=AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI
 

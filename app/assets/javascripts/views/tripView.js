@@ -12,10 +12,19 @@ app.TripView = Backbone.View.extend({
     var html = $('#tripViewTemplate').html();
     this.$el.html(html);
 
+    var self = this;
+
     app.trips.fetch().done(function(){
+
+      var trip = app.trips.findWhere({
+        id: self.model.get('id')
+      });
+
+      var lat = trip.attributes.latitude;
+      var lng = trip.attributes.longitude;
+
       var mapOptions = {
-        // pass in dynamic values for latlng from the database
-          center: new google.maps.LatLng(37.7831,-122.4039),
+          center: new google.maps.LatLng(lat, lng),
           zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
       };
@@ -24,7 +33,7 @@ app.TripView = Backbone.View.extend({
 
       var markerOptions = {
         // pass in dynamic values for latlng from the database
-      position: new google.maps.LatLng(37.7831, -122.4039)
+      position: new google.maps.LatLng(lat, lng)
       };
 
       var marker = new google.maps.Marker(markerOptions);
@@ -38,13 +47,7 @@ app.TripView = Backbone.View.extend({
       google.maps.event.addListener(marker,'click',function(e){    
         infoWindow.open(map, marker);
       });
-
-
-      
-    })
-
-
-      
+    })   
   }, 
 
   placeDetails: function(){
@@ -52,6 +55,7 @@ app.TripView = Backbone.View.extend({
     console.log('save places to the database')
     console.log('note savePlace must be made dynamic through google places api')
     var savePlace = new app.Place({
+      // save dynamic places
       name: 'Machu Picchu',
       description: 'Machu Picchu is great and beautiful'
     })
