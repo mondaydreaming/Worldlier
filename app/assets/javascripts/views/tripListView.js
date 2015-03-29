@@ -3,23 +3,21 @@ var app = app ||{};
 app.TripListView = Backbone.View.extend({
   el: '#main',
   events: {
-    'click': 'showTrip'
+    'click h3': 'showTrip'
   },
   render: function() {
     console.log('triplistview.js is being rendered')
     var self = this
-    app.trips.forEach(function(trip){
+    app.trips.each(function(trip){
       var tripListViewTemplate = $('#tripListView-template').html();
       var tripListViewHTML = _.template(tripListViewTemplate);
-      self.$el.html(tripListViewHTML(trip.attributes));    
-      // return trip.attributes
-      // debugger;
-
-    // Waiting for Joel's help - should be able to persist the loop results onto the page, currently just printing one at a time.
+      self.$el.append(tripListViewHTML(trip.attributes));    
     })
   },
-
   showTrip: function() {
-    app.appRouter.navigate('trips/' + this.model.get('id'), true);
+    debugger;
+    // NEED TO BE ABLE TO LINK BACK VIA URL TO TRIPS
+    var self = this
+    app.appRouter.navigate('trips/' + self.model.get('id'), true);
   }
 })

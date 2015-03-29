@@ -5,10 +5,46 @@ app.TripView = Backbone.View.extend({
   events: {
     'click .place-details': 'placeDetails'
   },
+
   render: function(){
     console.log('rendering tripview.js')
+
     var html = $('#tripViewTemplate').html();
     this.$el.html(html);
+
+    app.trips.fetch().done(function(){
+      var mapOptions = {
+        // pass in dynamic values for latlng from the database
+          center: new google.maps.LatLng(37.7831,-122.4039),
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+      var markerOptions = {
+        // pass in dynamic values for latlng from the database
+      position: new google.maps.LatLng(37.7831, -122.4039)
+      };
+
+      var marker = new google.maps.Marker(markerOptions);
+      marker.setMap(map);
+
+      var infoWindowOptions = {
+      content: 'MAKE THIS DYNAMIC!'
+      };
+
+      var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+      google.maps.event.addListener(marker,'click',function(e){    
+        infoWindow.open(map, marker);
+      });
+
+
+      
+    })
+
+
+      
   }, 
 
   placeDetails: function(){
@@ -24,27 +60,6 @@ app.TripView = Backbone.View.extend({
       app.appRouter.navigate('/places/' + place.id, {trigger:true})
     })   
   }
-    // USE TEMPLATING TO PUSH THE GOOGLE MAP VIEW DOCUMENTED BELOW INTO THE DIVs
-    
-    // GOOGLE MAPS API
-    // var mapOptions = {
-    //     center: new google.maps.LatLng(37.7831,-122.4039),
-    //     zoom: 12,
-    //     mapTypeId: google.maps.MapTypeId.ROADMAP
-    // };
-
-    // var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    // var markerOptions = {
-    //   position: new google.maps.LatLng(37.7831, -122.4039)
-    // };
-
-    // var marker = new google.maps.Marker(markerOptions);
-    //   marker.setMap(map);
-    // }
-    
-// enter functions that events will call upon e.g. one that will navigate to the placeView.js
-
 })
 
 

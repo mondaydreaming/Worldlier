@@ -6,12 +6,11 @@
 @import "railsbricks_custom";
 
 // GOOGLE MAPS CSS
-html, body {
-  height: 100%;
-  margin: 0;
-}
+
+//update the css below so that it is not fixed px
 #map{
-  height: 100%;
+  height: 500px;
+  width: 500px;
   margin: 0;
 }
 
