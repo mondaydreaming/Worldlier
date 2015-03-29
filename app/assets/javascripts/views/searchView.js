@@ -43,25 +43,28 @@ app.SearchView = Backbone.View.extend({
         });
         var tags = val.join('|');
 
-        //var results = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat+','+lng+'&radius='+radius+'&types='+ tags+'&key=AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI'
+        // var results = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat+','+lng+'&radius='+radius+'&types='+ tags+'&key=AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI'
 
-        var searchGPlaces = function() {
-          console.log('searching Google Places')
-          var GPlacesUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+        // var searchGPlaces = function() {
+        //   console.log('searching Google Places')
+        //   var GPlacesUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
 
-          return $.getJSON(GPlacesUrl), {
-            location: lat, lng,
-            radius: radius,
-            types: tags,
-            key: AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI
-          }
-        }
+        //   return $.getJSON(GPlacesUrl), {
+        //     location: lat + ',' +lng,
+        //     radius: radius,
+        //     types: tags,
+        //     key: 'AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI'
+        //   }
+        // }
+
+        // searchGPlaces().done(function(results){
+        //   console.log(results)
+        //   debugger
+        // });
 
 
-
-
-        console.log(results)   
-        debugger;
+        // console.log(results)   
+        // debugger;
         app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
       })
     })
