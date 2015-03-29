@@ -1,6 +1,6 @@
 var app = app ||{};
 
-app. TripListView = Backbone.View.extend({
+app.TripListView = Backbone.View.extend({
   el: '#main',
   events: {
     'click': 'showTrip'
@@ -8,16 +8,15 @@ app. TripListView = Backbone.View.extend({
   render: function() {
     console.log('triplistview.js is being rendered')
     var self = this
-    app.trips.each(function(trip){
-      // console.log(trip)
+    app.trips.forEach(function(trip){
       var tripListViewTemplate = $('#tripListView-template').html();
       var tripListViewHTML = _.template(tripListViewTemplate);
-      
+      self.$el.html(tripListViewHTML(trip.attributes));    
+      // return trip.attributes
       // debugger;
-      self.$el.html(tripListViewHTML(trip.attributes)); 
-      // $('#trips').append(self.$el);     
-    })
 
+    // Waiting for Joel's help - should be able to persist the loop results onto the page, currently just printing one at a time.
+    })
   },
 
   showTrip: function() {

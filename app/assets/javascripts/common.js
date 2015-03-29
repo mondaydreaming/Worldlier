@@ -15,6 +15,8 @@ $(document).ready(function(){
   _.templateSettings = {
     interpolate: /\{\{(.+?)\}\}/g
   };
+  app.trips.fetch().done(function(){
     app.appRouter = new app.AppRouter();
     Backbone.history.start();
+  })
 })

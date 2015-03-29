@@ -17,12 +17,15 @@ app.AppRouter = Backbone.Router.extend ({
 
   viewTripsList :function() {
     console.log('viewTripsList function is being called')
-    app.trips.fetch().done(function(id){
-      var trip = app.trips.get(id)
-      var tripListView = new app.TripListView({model: trip});
-      tripListView.render();
-    })
+    var trips = app.trips
+    var tripListView = new app.TripListView({collection: trips})
+    tripListView.render()
 
+    // app.trips.fetch().done(function(id){
+    //   var trip = app.trips.get(id)
+    //   var tripListView = new app.TripListView({model: trip});
+    //   tripListView.render();
+    // })
     // var appView = new app.AppView({collection: app.trips});
     // appView.render()
   },
