@@ -3,14 +3,27 @@ var app = app || {};
 app.TripView = Backbone.View.extend({
   el: '#main',
   events: {
-  // pass in events you're listening for e.g. clicking any of the image elements
+    'click .place-details': 'placeDetails'
   },
   render: function(){
     console.log('rendering tripview.js')
     var html = $('#tripViewTemplate').html();
     this.$el.html(html);
-    }  
+  }, 
 
+  placeDetails: function(){
+    console.log('firing off place-details click')
+    console.log('save places to the database')
+    console.log('note savePlace must be made dynamic through google places api')
+    var savePlace = new app.Place({
+      name: 'Machu Picchu',
+      description: 'Machu Picchu is great and beautiful'
+    })
+    savePlace.save().done(function(place){
+      app.places.add(savePlace);
+      app.appRouter.navigate('/places/' + place.id, {trigger:true})
+    })   
+  }
     // USE TEMPLATING TO PUSH THE GOOGLE MAP VIEW DOCUMENTED BELOW INTO THE DIVs
     
     // GOOGLE MAPS API

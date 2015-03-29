@@ -34,6 +34,7 @@ app.AppRouter = Backbone.Router.extend ({
   },
 
   viewPlace :function(id) {
+    console.log('viewing the place page')
     var place = app.places.get(id);
     var placeView = new app.PlaceView({model: place});
     placeView.render();

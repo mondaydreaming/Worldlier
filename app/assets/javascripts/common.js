@@ -2,6 +2,7 @@
 var app = app || {};
 
 app.trips = new app.Trips();
+app.places = new app.Places();
 
 $(document).ready(function(){
   // On pages where there is no main div, return nothing

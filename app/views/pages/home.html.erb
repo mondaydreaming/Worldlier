@@ -1,10 +1,9 @@
-<% title("Home Page") %>
-<h1><i class="fa fa-home"></i> Home Page <small>views/pages/home.html.erb</small></h1>
-
 <!-- This is where the single page app gets rendered -->
 <div id="main"></div>
 
+<!-- Search Page -->
 <script id="searchTemplate" type= 'text/x-underscore-template'>
+<h1><i class="fa fa-search"></i> Search for a Trip</h1>
   <form>
     <div class="form-group">
       <label for="location">Where do you want to travel to?</label>
@@ -26,14 +25,15 @@
   </form>
 </script>
 
+<!-- Trip overview page -->
 <script id="tripViewTemplate" type= 'text/x-underscore-template'>
   <div class="row">
     <div class="col-md-6">
-      <p>Render trip timeline</p>
+      <h2>Render trip timeline</h2>
       <ul class="timeline">
           <li>
               <div class="timeline-image">
-                  <img class="img-circle img-responsive" src="http://goo.gl/GPOFpQ" alt="">
+                  <a class = "place-details" href="/#places/1"><img class="img-circle img-responsive" alt="INSERT SRC"></a>
               </div>
               <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -47,7 +47,7 @@
           </li>
           <li class="timeline-inverted">
               <div class="timeline-image">
-                  <img class="img-circle img-responsive" src="" alt="">
+                  <img class="img-circle img-responsive" alt="INSERT SRC">
               </div>
               <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -61,7 +61,7 @@
           </li>
           <li>
               <div class="timeline-image">
-                  <img class="img-circle img-responsive" src="#" alt="">
+                  <img class="img-circle img-responsive" alt="INSERT SRC">
               </div>
               <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -75,7 +75,7 @@
           </li>
           <li class="timeline-inverted">
               <div class="timeline-image">
-                  <img class="img-circle img-responsive" src="#" alt="">
+                  <img class="img-circle img-responsive" alt="INSERT SRC">
               </div>
               <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -89,32 +89,29 @@
           </li>
           <li class="timeline-inverted">
               <div class="timeline-image">
-                  <h4>Be Part
-                      <br>Of Our
-                      <br>Story!</h4>
+                  <img class="img-circle img-responsive" alt="INSERT SRC">
               </div>
           </li>
       </ul>    
     </div>
     <div class="col-md-6">
-      <p>Render trip directions and google map</p>
-      <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-      <div id="map"></div>
+      <h2>Render trip map and directions </h2>
     </div>
   </div>
 </script>
+<!-- THIS SECTION IS TO GO IN THE GOOGLE MAP SECTION
+      <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+      <div id="map"></div> -->
 
-<script id="placeViewTemplate" type='text/x-underscore-template'>
-  <h2>Render place view </h2>
-</script>
-
-
-<script id="appView-template" type="text/x-template">
-  <h2>Recent Trips</h2>
-  <ul id="trips"></ul>
-</script>
-
+<!-- List of Trips template -->
 <script id = 'tripListView-template' type='text/x-underscore-template'>
   <h3> {{ location }} </h3>
 </script>
+
+<!-- Detailed Place page -->
+<script id="placeViewTemplate" type='text/x-underscore-template'>
+  <h2>Render place view </h2>
+  <p>This is the place where you should render your scraped information from wikitravel/instagram</p>
+</script>
+
 

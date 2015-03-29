@@ -18,14 +18,13 @@ app.SearchView = Backbone.View.extend({
     var placeTag = this.$('#place_tag').val();
     var numberSights = this.$('#number_sights').val();
     var saveTrip = new app.Trip ({
-      sights_num: numberSights,
+      sightsnum: numberSights,
       location: location,
       location_radius: radius,
       tag: placeTag,
     });
     saveTrip.save().done(function(trip){
       app.trips.add(saveTrip);
-      debugger;
       app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
     })
     this.$('.form-control').val('');
