@@ -7,13 +7,23 @@ class PlacesController < ApplicationController
   # GET /places.json
   def index
     @places = Place.all
-    @doc = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/eiffel_tower")) 
+    @doc = Nokogiri::HTML(open("https://www.linkedin.com/in/amesimmons")) 
     # Where "Peru" needs to be made dynamic based on the name of the place if possible
 
-    @intropara = @doc.xpath("//p[position() <= 2]")
+    @intropara = @doc.xpath("//p[position() <= 1]")
     # How do we save the above intro para into the database within description for the place?
 
     # replace all /wiki within @intropara with http://en.wikipedia.org/wiki => no more link issues
+
+    # @doc = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/eiffel_tower")) 
+
+    # @intropara = @doc.xpath("//p[position() <= 2]")
+
+
+# description summary-field-show-more
+
+
+
 
   end
 

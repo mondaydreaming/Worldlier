@@ -85,10 +85,12 @@ app.TripView = Backbone.View.extend({
 
           var start = tripPlaces[0].name;
           var end = tripPlaces[app.sightsnum-1].name;
-
-          for (var i = 0, place; place = tripPlaces[i]; i++) {
+          debugger;
+          var waypts = [];
+          for (var i = 1; i < tripPlaces.length-1 ; i++) {
+            var place = tripPlaces[i]
+            console.log(i, place)
             //For each tripPlace, save as a waypoints
-            var waypts = [];
             if ((tripPlaces[i] !== start)|| (tripPlaces[i] !== end)){
               waypts.push({
                 location: tripPlaces[i].name,
