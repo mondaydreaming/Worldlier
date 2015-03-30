@@ -37,14 +37,16 @@ app.TripView = Backbone.View.extend({
       };
 
       var marker = new google.maps.Marker(markerOptions);
-      marker.setMap(map);
+      // marker.setMap(map);
 
       var infoWindowOptions = {
       content: 'MAKE THIS DYNAMIC!'
       };
 
       var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+
       google.maps.event.addListener(marker,'click',function(e){    
+        
         infoWindow.open(map, marker);
       });
 
@@ -56,15 +58,49 @@ app.TripView = Backbone.View.extend({
       console.log('lat:', lat, 'lng:',lng, 'radius:',radius, 'tags:',tag, 'sights:', sightsnum, 'location:', location)
 
       var service;
-      
+      var infowindow;
+
+      var request = {
+        location: new google.maps.LatLng(lat, lng),
+        radius: radius,
+        types: JSON.parse(tag),
+      };
+
       service = new google.maps.places.PlacesService(map);
-      service.nearbySearch(nearbyRequest, nearbyCallback);
-      service.getDetails(detailsRequest, detailsCallback);
+      service.nearbySearch(request, callback);
 
+      function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          var tripPlaces = _.sample(results, app.sightsnum)
+          for (var i = 0, place; place = tripPlaces[i]; i++) {
+            var detailsRequest = {
+              placeId: place.place_id
+            };
 
+            var infowindow = new google.maps.InfoWindow();
+            service.getDetails(detailsRequest, detailsCallback);
 
-      
+            function detailsCallback(place, status) {
+              console.log(place, status)
+              if (status == google.maps.places.PlacesServiceStatus.OK) {
+               var marker = new google.maps.Marker({
+                  map: map,
+                  position: place.geometry.location
+                });
+                marker.setMap(map);
 
+                google.maps.event.addListener(marker, 'click', function() {
+                  var infoContent = '<div><h6>' + place.name + '</h6></div>'+ place.formatted_address
+                  infowindow.setContent(infoContent);
+                  infowindow.open(map, this);
+                  // console.log('you clicked', place.name)
+                });
+              }
+            }            
+            //save the place to the database
+          }
+        }
+      }
     })   
   }, 
 
@@ -83,41 +119,5 @@ app.TripView = Backbone.View.extend({
     })   
   }
 })
-
-
-
-//CODE HELL - WHERE UNWANTED CODE GOES TO DIE
-      // var infowindow;
-
-      // var nearbyRequest = {
-      //   location: new google.maps.LatLng(lat, lng),
-      //   radius: radius,
-      //   types: JSON.parse(tag),
-      // };
-
-      // var detailsRequest = {
-      //   placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
-      // };
-      // function nearbyCallback(results, status) {
-      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-      //     var tripPlaces = _.sample(results, app.sightsnum)
-      //     for (var i = 0, place; place = tripPlaces[i]; i++) {
-      //       var marker = new google.maps.Marker({
-      //         map: map,
-      //         position: place.geometry.location
-      //       });
-      //       marker.setMap(map);
-      //       //save the place to the database
-      //     }
-      //   }
-      // }
-
-      // function detailsCallback(place, status) {
-      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-      //     createMarker(place);
-      //   }
-      // }
-
-
 
 
