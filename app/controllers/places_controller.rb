@@ -1,10 +1,20 @@
 class PlacesController < ApplicationController
+  require 'open-uri'
+
   before_action :set_place, only: [:show, :edit, :update, :destroy]
 
   # GET /places
   # GET /places.json
   def index
     @places = Place.all
+    @doc = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/eiffel_tower")) 
+    # Where "Peru" needs to be made dynamic based on the name of the place if possible
+
+    @intropara = @doc.xpath("//p[position() <= 2]")
+    # How do we save the above intro para into the database within description for the place?
+
+    # replace all /wiki within @intropara with http://en.wikipedia.org/wiki => no more link issues
+
   end
 
   # GET /places/1
