@@ -56,37 +56,15 @@ app.TripView = Backbone.View.extend({
       console.log('lat:', lat, 'lng:',lng, 'radius:',radius, 'tags:',tag, 'sights:', sightsnum, 'location:', location)
 
       var service;
-      var infowindow;
-
-      var request = {
-        location: new google.maps.LatLng(lat, lng),
-        radius: radius,
-        types: JSON.parse(tag),
-      };
-
-      // need to have a way of limiting and randomising the output
+      
       service = new google.maps.places.PlacesService(map);
-      service.nearbySearch(request, callback);
+      service.nearbySearch(nearbyRequest, nearbyCallback);
+      service.getDetails(detailsRequest, detailsCallback);
 
-      function callback(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          var tripPlaces = _.sample(results, app.sightsnum)
-          // for (var i = 0; i < tripPlaces.length; i++) {
-          //   console.log(tripPlaces)
-          //   // var place = results[i];
-          //   // createMarker(results[i]);
-          // }
 
-          for (var i = 0, place; place = tripPlaces[i]; i++) {
-            var marker = new google.maps.Marker({
-              map: map,
-              position: place.geometry.location
-            });
-            marker.setMap(map);
-          }
-          debugger;
-        }
-      }
+
+      
+
     })   
   }, 
 
@@ -105,5 +83,41 @@ app.TripView = Backbone.View.extend({
     })   
   }
 })
+
+
+
+//CODE HELL - WHERE UNWANTED CODE GOES TO DIE
+      // var infowindow;
+
+      // var nearbyRequest = {
+      //   location: new google.maps.LatLng(lat, lng),
+      //   radius: radius,
+      //   types: JSON.parse(tag),
+      // };
+
+      // var detailsRequest = {
+      //   placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
+      // };
+      // function nearbyCallback(results, status) {
+      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+      //     var tripPlaces = _.sample(results, app.sightsnum)
+      //     for (var i = 0, place; place = tripPlaces[i]; i++) {
+      //       var marker = new google.maps.Marker({
+      //         map: map,
+      //         position: place.geometry.location
+      //       });
+      //       marker.setMap(map);
+      //       //save the place to the database
+      //     }
+      //   }
+      // }
+
+      // function detailsCallback(place, status) {
+      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+      //     createMarker(place);
+      //   }
+      // }
+
+
 
 
