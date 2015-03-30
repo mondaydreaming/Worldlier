@@ -55,7 +55,6 @@ app.TripView = Backbone.View.extend({
       var sightsnum = trip.attributes.sightsnum;
       app.sightsnum = sightsnum
       var radius = parseInt(trip.attributes.location_radius)*1000
-      console.log('lat:', lat, 'lng:',lng, 'radius:',radius, 'tags:',tag, 'sights:', sightsnum, 'location:', location)
 
       var service;
       var infowindow;
@@ -66,14 +65,40 @@ app.TripView = Backbone.View.extend({
         types: JSON.parse(tag),
       };
 
+      // setting up wayfinding 
+
+
+
+
+
+
+      // }
+
+////////////////
+
       service = new google.maps.places.PlacesService(map);
       service.nearbySearch(request, callback);
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          var tripPlaces = _.sample(results, app.sightsnum)
-          for (var i = 0, place; place = tripPlaces[i]; i++) {
+          var tripPlaces = _.sample(results, app.sightsnum);
 
+          var start = tripPlaces[0].name;
+          var end = tripPlaces[app.sightsnum-1].name;
+
+          for (var i = 0, place; place = tripPlaces[i]; i++) {
+            //For each tripPlace, save as a waypoints
+            var waypts = [];
+            if ((tripPlaces[i] !== start)|| (tripPlaces[i] !== end)){
+              waypts.push({
+                location: tripPlaces[i].name,
+                stopover:true
+              })  
+            }
+
+            // debugger;
+
+            // Obtain details for each place
             var detailsRequest = {
               placeId: place.place_id
             };
@@ -81,31 +106,60 @@ app.TripView = Backbone.View.extend({
             var infowindow = new google.maps.InfoWindow();
             service.getDetails(detailsRequest, detailsCallback);
 
+            // Renders the markers and infowindows
             function detailsCallback(place, status) {
-              console.log(place, status)
               if (status == google.maps.places.PlacesServiceStatus.OK) {
-                var marker = new google.maps.Marker({
-                  map: map,
-                  position: place.geometry.location
-                });
+                //Persist to database
                 var savePlace = new app.Place({
                   name: place.name,
                   latitude: place.geometry.location.D,
                   longitude: place.geometry.location.k 
                 });
                 savePlace.save();
+
+                // Render marker
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: place.geometry.location
+                });
+
                 marker.setMap(map);
 
+                // Render infowindow
                 google.maps.event.addListener(marker, 'click', function() {
                   var infoContent = '<div><h6>' + place.name + '</h6></div>'+ place.formatted_address
                   infowindow.setContent(infoContent);
                   infowindow.open(map, this);
-                  // console.log('you clicked', place.name)
                 });
               }
             }            
-            //save the place to the database
           }
+          // Render directions
+          var directionsDisplay;
+          var directionsService = new google.maps.DirectionsService();
+          directionsDisplay = new google.maps.DirectionsRenderer();
+          directionsDisplay.setMap(map);
+          directionsDisplay.setPanel(document.getElementById('directions-panel'))
+          // var selectedMode = document.getElementById('mode').value;
+
+          var directionsRequest = {
+              origin: start,
+              destination: end,
+              waypoints: waypts,
+              optimizeWaypoints: true,
+              travelMode: google.maps.TravelMode.DRIVING // This will be changed to allow for options - Why can't selected Mode work?
+          };
+
+          debugger;
+          // Why is waypts not saving each tripView[i]????
+          // How can we ensure that the shortest route is found? - at the moment end is just set to the last in the array, not necessarily the furthest away... - it is optimizing based on params we pass in though
+
+          directionsService.route(directionsRequest, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              directionsDisplay.setDirections(response);
+              var route = response.routes[0];
+            }
+          });          
         }
       }
     })   

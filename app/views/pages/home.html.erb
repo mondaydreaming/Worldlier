@@ -110,10 +110,22 @@
     </div>
     <div class="col-md-6 map-directions">
       <h2>Render trip map and directions </h2>
-      <div id="map"></div>
+      <div id="map">
+        <div id="panel">
+          <b>Mode of Travel: </b>
+          <select id="mode" onchange="calcRoute();">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+          </select>
+        </div>
+      </div>
+      <div id="directions-panel"></div>
     </div>
   </div>
 </script>
+
 
 <!-- List of Trips template -->
 <script id = 'tripListView-template' type='text/x-underscore-template'>
