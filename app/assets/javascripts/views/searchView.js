@@ -15,13 +15,15 @@ app.SearchView = Backbone.View.extend({
     event.preventDefault();
     var location = this.$('#location').val();
     var radius = this.$('#radius').val();
-    var val = [];
+    var placeTag = [];
     $(':checkbox:checked').each(function(i){
-      val[i] = $(this).val();
+      results = $(this).val().split(' ');
+      placeTag = placeTag.concat.apply(placeTag,results)
     });
-    var placeTag = val.join('|');
+    debugger;
+    console.log(placeTag)
     var numberSights = this.$('#number_sights').val();
-    // debugger;
+
     var saveTrip = new app.Trip ({
       sightsnum: numberSights,
       location: location,
@@ -34,31 +36,3 @@ app.SearchView = Backbone.View.extend({
     })
   }
 })
-
-
-// https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&key=AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI
-
-
-        // var results = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat+','+lng+'&radius='+radius+'&types='+ tags+'&key=AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI'
-        // debugger;
-
-        // var searchGPlaces = function() {
-        //   console.log('searching Google Places')
-        //   var GPlacesUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
-
-        //   return $.ajax(GPlacesUrl, {
-        //     dataType: 'jsonp', // look up JSONP on wikipedia
-        //     data: {
-        //       location: lat + ',' +lng,
-        //       radius: radius,
-        //       types: tags,
-        //       key: 'AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI'
-        //     }
-        //   });
-        // }
-        // debugger;
-        // searchGPlaces().done(function(results){
-        //   console.log(results)
-        //   debugger;
-        // });
-        // console.log(results)   

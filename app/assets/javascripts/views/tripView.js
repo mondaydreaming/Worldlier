@@ -20,15 +20,8 @@ app.TripView = Backbone.View.extend({
       var trip = app.trips.findWhere({
         id: self.model.get('id')
       });
-
       var lat = trip.attributes.latitude;
       var lng = trip.attributes.longitude;
-      var tag = trip.attributes.tag;
-      var sightsnum = trip.attributes.sightsnum;
-      var radius = parseInt(trip.attributes.location_radius)*1000
-      console.log('lat:', lat, 'lng:',lng, 'radius:',radius, 'tags:',tag, 'sights:', sightsnum)
-      debugger;
-
       // Drawing map for trip
       var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
@@ -56,36 +49,34 @@ app.TripView = Backbone.View.extend({
       });
 
       // articulating place
-      // var map;
-      // var service;
-      // var infowindow;
+      var tag = trip.attributes.tag;
+      var sightsnum = trip.attributes.sightsnum;
+      var radius = parseInt(trip.attributes.location_radius)*1000
+      console.log('lat:', lat, 'lng:',lng, 'radius:',radius, 'tags:',tag, 'sights:', sightsnum, 'location:', location)
 
-      // function initialize() {
-      //   var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
+      var service;
+      var infowindow;
 
-      //   map = new google.maps.Map(document.getElementById('map'), {
-      //       center: pyrmont,
-      //       zoom: 15
-      //     });
+      var request = {
+        location: new google.maps.LatLng(lat, lng),
+        radius: radius,
+        types: JSON.parse(tag),
+      };
 
-      //   var request = {
-      //     location: pyrmont,
-      //     radius: '500',
-      //     types: ['store']
-      //   };
+      // need to have a way of limiting and randomising the output
 
-      //   service = new google.maps.places.PlacesService(map);
-      //   service.nearbySearch(request, callback);
-      // }
+      service = new google.maps.places.PlacesService(map);
+      service.nearbySearch(request, callback);
+      console.log('anything')
 
-      // function callback(results, status) {
-      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-      //     for (var i = 0; i < results.length; i++) {
-      //       var place = results[i];
-      //       createMarker(results[i]);
-      //     }
-      //   }
-      // }
+      function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            var place = results[i];
+            // createMarker(results[i]);
+          }
+        }
+      }
     })   
   }, 
 
