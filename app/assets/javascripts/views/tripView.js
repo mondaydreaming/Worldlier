@@ -73,6 +73,7 @@ app.TripView = Backbone.View.extend({
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           var tripPlaces = _.sample(results, app.sightsnum)
           for (var i = 0, place; place = tripPlaces[i]; i++) {
+
             var detailsRequest = {
               placeId: place.place_id
             };
@@ -83,10 +84,16 @@ app.TripView = Backbone.View.extend({
             function detailsCallback(place, status) {
               console.log(place, status)
               if (status == google.maps.places.PlacesServiceStatus.OK) {
-               var marker = new google.maps.Marker({
+                var marker = new google.maps.Marker({
                   map: map,
                   position: place.geometry.location
                 });
+                var savePlace = new app.Place({
+                  name: place.name,
+                  latitude: place.geometry.location.D,
+                  longitude: place.geometry.location.k 
+                });
+                savePlace.save();
                 marker.setMap(map);
 
                 google.maps.event.addListener(marker, 'click', function() {
