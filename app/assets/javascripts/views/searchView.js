@@ -20,7 +20,6 @@ app.SearchView = Backbone.View.extend({
       results = $(this).val().split(' ');
       placeTag = placeTag.concat.apply(placeTag,results)
     });
-    debugger;
     console.log(placeTag)
     var numberSights = this.$('#number_sights').val();
 
@@ -28,7 +27,7 @@ app.SearchView = Backbone.View.extend({
       sightsnum: numberSights,
       location: location,
       location_radius: radius,
-      tag: placeTag
+      tag: JSON.stringify(placeTag)
     });
     saveTrip.save().done(function(trip){
       app.trips.add(saveTrip);

@@ -51,6 +51,7 @@ app.TripView = Backbone.View.extend({
       // articulating place
       var tag = trip.attributes.tag;
       var sightsnum = trip.attributes.sightsnum;
+      app.sightsnum = sightsnum
       var radius = parseInt(trip.attributes.location_radius)*1000
       console.log('lat:', lat, 'lng:',lng, 'radius:',radius, 'tags:',tag, 'sights:', sightsnum, 'location:', location)
 
@@ -64,17 +65,26 @@ app.TripView = Backbone.View.extend({
       };
 
       // need to have a way of limiting and randomising the output
-
       service = new google.maps.places.PlacesService(map);
       service.nearbySearch(request, callback);
-      console.log('anything')
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            var place = results[i];
-            // createMarker(results[i]);
+          var tripPlaces = _.sample(results, app.sightsnum)
+          // for (var i = 0; i < tripPlaces.length; i++) {
+          //   console.log(tripPlaces)
+          //   // var place = results[i];
+          //   // createMarker(results[i]);
+          // }
+
+          for (var i = 0, place; place = tripPlaces[i]; i++) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location
+            });
+            marker.setMap(map);
           }
+          debugger;
         }
       }
     })   
