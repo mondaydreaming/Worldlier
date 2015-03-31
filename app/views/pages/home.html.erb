@@ -2,42 +2,54 @@
 <div id="main"></div>
 
 <!-- Search Page -->
+
+    
+
 <script id="searchTemplate" type= 'text/x-underscore-template'>
-<h1><i class="fa fa-search"></i> Search for a Trip</h1>
-  <form>
-    <div class="form-group">
-      <label for="location">Where do you want to travel to?</label>
-      <input type="text" class="form-control" id="location">
-    </div>
-    <div class="form-group">
-      <label for="radius">How far beyond that place do you wish to explore?</label>
-      <input type="range" id = 'radius' name="radius" min="0" max="10" onchange="rangevalue.value=value">
-      <h6><output id="rangevalue">5</output> kilometres</h6>
-    </div>
-    <div class="form-group">
-      <label for="place_tag">What type of places are you interested in?</label>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="park aquarium zoo"> One with nature
-          </label>
+<div class="row">
+  <div class="col-md-6">
+    <h1><i class="fa fa-search"></i> Search for a Trip</h1>
+      <form>
+        <div class="form-group">
+          <label for="location">Where do you want to travel to?</label>
+          <input type="text" class="form-control" id="location">
+        </div>
+        <div class="form-group">
+          <label for="radius">How far beyond that place do you wish to explore?</label>
+          <input type="range" id = 'radius' name="radius" min="0" max="10" onchange="rangevalue.value=value">
+          <h6><output id="rangevalue">5</output> kilometres</h6>
+        </div>
+        <div class="form-group">
+          <label for="place_tag">What type of places are you interested in?</label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="park aquarium zoo"> One with nature
+              </label>
+            </div> 
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="art_gallery museum"> Get cultural
+              </label>
+            </div> 
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="amusement_park"> Thrills and spills
+              </label>
+            </div>                 
         </div> 
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="art_gallery museum"> Get cultural
-          </label>
-        </div> 
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="amusement_park"> Thrills and spills
-          </label>
-        </div>                 
-    </div> 
-    <div class="form-group">
-      <label for="number_sights">How many places do you wish to visit?</label>
-      <input type="number" class="form-control" id="number_sights">
-    </div>     
-    <button class="search btn btn-default">Create Trip</button>
-  </form>
+        <div class="form-group">
+          <label for="number_sights">How many places do you wish to visit?</label>
+          <input type="number" class="form-control" id="number_sights">
+        </div>     
+        <button class="search btn btn-teal">Create Trip</button>
+      </form>
+    </div>
+  <div class="col-md-4">
+
+  </div>
+</div>
+
+
 </script>
 
 <!-- Trip overview page -->
@@ -85,7 +97,7 @@
 <!-- Detailed Place page -->
 <script id="placeViewTemplate" type='text/x-underscore-template'>
   <h2>Render place view </h2>
-  <p>This is the place where you should render your scraped information from wikitravel/instagram</p>
+  <div class = 'wiki-container'></div>
 </script>
 
 
