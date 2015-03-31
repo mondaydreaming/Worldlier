@@ -22,6 +22,7 @@ app.TripView = Backbone.View.extend({
     $.when(tripsFetch, placesFetch).done(function(){
       //articulating trip
       // Trip parameters
+
       var trip = app.trips.findWhere({
         id: self.model.get('id')
       });
@@ -66,9 +67,10 @@ app.TripView = Backbone.View.extend({
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          var tripPlaces = _.sample(results, app.sightsnum);
-          var start = tripPlaces[0].name; // HOW TO TRAVERSE TO THE FIRST ELEMENT
-          var end = tripPlaces[app.sightsnum-1].name;
+          var tripPlaces = self.places.models
+          var start = tripPlaces[0].get('name');
+          debugger;
+          var end = tripPlaces[app.sightsnum-1].get('name');
           var waypts = [];
           for (var i = 1; i < tripPlaces.length-1 ; i++) {
             var place = tripPlaces[i]
@@ -76,11 +78,10 @@ app.TripView = Backbone.View.extend({
             //For each tripPlace, save as a waypoints
             if ((tripPlaces[i] !== start)|| (tripPlaces[i] !== end)){
               waypts.push({
-                location: tripPlaces[i].name,
+                location: tripPlaces[i].get('name'),
                 stopover:true
               })  
             }
-
             // Obtain details for each place
             var detailsRequest = {
               placeId: place.place_id
