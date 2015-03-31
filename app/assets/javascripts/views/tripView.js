@@ -20,7 +20,8 @@ app.TripView = Backbone.View.extend({
     var placesFetch = this.places.fetch()
 
     $.when(tripsFetch, placesFetch).done(function(){
-      //articulating trip
+
+      //ARTICULATING TRIP FOR GOOGLE PURPOSES
       // Trip parameters
 
       var trip = app.trips.findWhere({
@@ -116,10 +117,37 @@ app.TripView = Backbone.View.extend({
                   infowindow.open(map, this);
                 });
               }
-            }            
-          }
-          debugger;
+            };
 
+            // ARTICULATING TRIP FOR TIMELINE PURPOSES
+            //WIKI
+            var fetchWikipediaContent= function() {
+              console.log('Fetching wikipedia content');
+              $.ajax({
+                url: 'http://en.wikipedia.org/w/api.php', 
+                data: {
+                  action: 'parse',
+                  page: place.get('name'),
+                  format: 'json',
+                  prop: 'text',
+                  section: 0
+                },
+                  dataType: 'jsonp',
+              }).done(function(result){processWikipediaContent(result)});
+            };
+
+            var processWikipediaContent= function (content) {
+              // Pass in success parameter! If successful, return wiki, if unsuccessful, tell the user to discover and see for themselves - save the place to the database description
+              console.log('Processing wikipedia content')
+              var fetchedRawContent = content.parse.text['*'];
+              var $createElement = $('<div>').html(fetchedRawContent);
+              var $introContent = $createElement.find('p');
+              $('.wiki-container').append($introContent);
+            };
+
+            fetchWikipediaContent();
+
+          }
           // Render directions
           var directionsDisplay = new google.maps.DirectionsRenderer();
           var directionsService = new google.maps.DirectionsService();
