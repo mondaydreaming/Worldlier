@@ -30,6 +30,7 @@ app.TripView = Backbone.View.extend({
             url: 'http://en.wikipedia.org/w/api.php', 
             data: {
               action: 'parse',
+              redirects: true,
               page: place.get('name'),
               format: 'json',
               prop: 'text',
@@ -50,8 +51,9 @@ app.TripView = Backbone.View.extend({
           //need to get attr ids to be dynamic
           var placeImage = $('<div>').html($displayContent).addClass('placeImage').attr("style", "background-image: url(" + photo_url + "); background-size: cover; background-position: cover;")
           //app.placeImage.attr('id',i)
+          var imageTitle = $('<h3>').html("//" + place.get('name')).addClass('imageHeading')
+          placeImage.prepend(imageTitle)
           $('.wiki-container').append(placeImage);
-          debugger;
 
         };
         fetchWikipediaContent();     
@@ -139,19 +141,19 @@ app.TripView = Backbone.View.extend({
                 // })
 
                 // Render marker
-                var marker = new google.maps.Marker({
-                  map: map,
-                  position: place.geometry.location
-                });
+                // var marker = new google.maps.Marker({
+                //   map: map,
+                //   position: place.geometry.location
+                // });
 
-                marker.setMap(map);
+                // marker.setMap(map);
 
                 // Render infowindow
-                google.maps.event.addListener(marker, 'click', function() {
-                  var infoContent = '<div><h6>' + place.name + '</h6></div>'+ place.formatted_address
-                  infowindow.setContent(infoContent);
-                  infowindow.open(map, this);
-                });
+                // google.maps.event.addListener(marker, 'click', function() {
+                //   var infoContent = '<div><h6>' + place.name + '</h6></div>'+ place.formatted_address
+                //   infowindow.setContent(infoContent);
+                //   infowindow.open(map, this);
+                // });
               }
             };
 
