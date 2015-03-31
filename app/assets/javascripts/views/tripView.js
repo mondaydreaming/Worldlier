@@ -2,9 +2,9 @@ var app = app || {};
 
 app.TripView = Backbone.View.extend({
   el: '#main',
-  events: {
-    'click .place-details': 'placeDetails'
-  },
+  // events: {
+  //   'click .place-details': 'placeDetails'
+  // },
 
   render: function(){
     console.log('rendering tripview.js')
@@ -72,7 +72,7 @@ app.TripView = Backbone.View.extend({
           var start = tripPlaces[0].get('name');
           var end = tripPlaces[app.sightsnum-1].get('name');
           var waypts = [];
-          for (var i = 1; i < tripPlaces.length-1 ; i++) {
+          for (var i = 1; i < tripPlaces.length - 1; i++) {
             var place = tripPlaces[i]
             //For each tripPlace, save as a waypoints
             if ((tripPlaces[i] !== start)|| (tripPlaces[i] !== end)){
@@ -119,7 +119,7 @@ app.TripView = Backbone.View.extend({
               }
             };
 
-            // ARTICULATING TRIP FOR TIMELINE PURPOSES
+            // ARTICULATING TRIP FOR TIMELINE PURPOSES - THIS SECTION BELOW NEEDS TO BE IN OWN LOOP STARTING AT NIL
             //WIKI
             var fetchWikipediaContent= function() {
               console.log('Fetching wikipedia content');
@@ -136,13 +136,41 @@ app.TripView = Backbone.View.extend({
               }).done(function(result){processWikipediaContent(result)});
             };
 
+            var processImages = function(result) {
+              console.log("process")
+              var photo = result.photos.photo[0];
+              var url = [
+                'https://farm',
+                photo.farm,
+                '.staticflickr.com/',
+                photo.server,
+                '/',
+                photo.id,
+                '_',
+                photo.secret,
+                '_n.jpg',
+              ].join('');
+              app.placeImage.attr("style", "background-image: url(" + url + "); background-size: cover; background-position: cover;").attr("id", i)
+            };
+
             var processWikipediaContent= function (content) {
               // Pass in success parameter! If successful, return wiki, if unsuccessful, tell the user to discover and see for themselves - save the place to the database description
               console.log('Processing wikipedia content')
               var fetchedRawContent = content.parse.text['*'];
               var $createElement = $('<div>').html(fetchedRawContent);
               var $introContent = $createElement.find('p');
-              $('.wiki-container').append($introContent);
+              var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
+              app.placeImage = $('<div>').html($displayContent).addClass('placeImage');
+              $('.wiki-container').append(app.placeImage);
+
+              var flickrUrl = 'https://api.flickr.com/services/rest/?jsoncallback=?';
+
+              $.getJSON(flickrUrl, {
+                  method: 'flickr.photos.search',
+                  api_key: '2f5ac274ecfac5a455f38745704ad084',
+                  text: place.get('name'),
+                  format: 'json',
+              }).done(processImages);
             };
 
             fetchWikipediaContent();
@@ -175,18 +203,13 @@ app.TripView = Backbone.View.extend({
     })   
   }, 
 
-  placeDetails: function(event){
-    event.preventDefault()
-    // var savePlace = new app.Place({
-    //   // save dynamic places
-    //   name: 'Machu Picchu',
-    //   description: 'Machu Picchu is great and beautiful'
-    // })
-    savePlace.save().done(function(place){
-      app.places.add(savePlace);
-      app.appRouter.navigate('/places/' + place.id, {trigger:true})
-    })   
-  }
+  // placeDetails: function(event){
+  //   event.preventDefault()
+  //   savePlace.save().done(function(place){
+  //     app.places.add(savePlace);
+  //     app.appRouter.navigate('/places/' + place.id, {trigger:true})
+  //   })   
+  // }
 })
 
 
