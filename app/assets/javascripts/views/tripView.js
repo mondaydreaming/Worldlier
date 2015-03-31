@@ -15,13 +15,17 @@ app.TripView = Backbone.View.extend({
     var self = this;
     this.places = new app.Places({trip_id: this.model.get('id')})
 
-    app.trips.fetch().done(function(){
-      
+    // fetch trip and places data simultaneously
+    var tripsFetch = app.trips.fetch()
+    var placesFetch = this.places.fetch()
+
+    $.when(tripsFetch, placesFetch).done(function(){
       //articulating trip
       // Trip parameters
       var trip = app.trips.findWhere({
         id: self.model.get('id')
       });
+
       var lat = trip.attributes.latitude;
       var lng = trip.attributes.longitude;
       // Drawing map for trip
@@ -39,18 +43,7 @@ app.TripView = Backbone.View.extend({
       };
 
       var marker = new google.maps.Marker(markerOptions);
-      // marker.setMap(map);
-
-      var infoWindowOptions = {
-      content: 'MAKE THIS DYNAMIC!'
-      };
-
-      var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-
-      google.maps.event.addListener(marker,'click',function(e){    
-        
-        infoWindow.open(map, marker);
-      });
+      marker.setMap(map);
 
       // articulating place
       var tag = trip.attributes.tag;
