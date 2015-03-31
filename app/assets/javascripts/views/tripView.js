@@ -20,6 +20,44 @@ app.TripView = Backbone.View.extend({
     var placesFetch = this.places.fetch()
 
     $.when(tripsFetch, placesFetch).done(function(){
+      app.tripPlace = self.places.models
+
+      //WIKI
+        for (var i = 0; i < app.tripPlace.length; i++) {
+          var place = app.tripPlace[i]
+          var fetchWikipediaContent= function() {
+            console.log('Fetching wikipedia content');
+            $.ajax({
+              url: 'http://en.wikipedia.org/w/api.php', 
+              data: {
+                action: 'parse',
+                page: place.get('name'),
+                format: 'json',
+                prop: 'text',
+                section: 0
+              },
+                dataType: 'jsonp',
+            }).done(function(result){processWikipediaContent(result)});
+          };
+
+          var processWikipediaContent= function (content) {
+            // Pass in success parameter! If successful, return wiki, if unsuccessful or if successful but is a redirect, tell the user to discover and see for themselves - save the place to the database description
+            console.log('Processing wikipedia content')
+            var fetchedRawContent = content.parse.text['*'];
+            var $createElement = $('<div>').html(fetchedRawContent);
+            var $introContent = $createElement.find('p');
+            var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
+            var photo_url = place.get('photo_url')
+
+            //need to get attr ids to be dynamic
+            app.placeImage = $('<div>').html($displayContent).addClass('placeImage').attr("id", i).attr("style", "background-image: url(" + photo_url + "); background-size: cover; background-position: cover;")
+            $('.wiki-container').append(app.placeImage);
+
+          };
+
+          fetchWikipediaContent();     
+        };
+
 
       //ARTICULATING TRIP FOR GOOGLE PURPOSES
       // Trip parameters
@@ -68,16 +106,15 @@ app.TripView = Backbone.View.extend({
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          var tripPlaces = self.places.models
-          var start = tripPlaces[0].get('name');
-          var end = tripPlaces[app.sightsnum-1].get('name');
+          var start = app.tripPlace[0].get('name');
+          var end = app.tripPlace[app.sightsnum-1].get('name');
           var waypts = [];
-          for (var i = 1; i < tripPlaces.length - 1; i++) {
-            var place = tripPlaces[i]
+          for (var i = 1; i < app.tripPlace.length - 1; i++) {
+            var place = app.tripPlace[i]
             //For each tripPlace, save as a waypoints
-            if ((tripPlaces[i] !== start)|| (tripPlaces[i] !== end)){
+            if ((app.tripPlace[i] !== start)|| (app.tripPlace[i] !== end)){
               waypts.push({
-                location: tripPlaces[i].get('name'),
+                location: app.tripPlace[i].get('name'),
                 stopover:true
               })  
             }
@@ -118,62 +155,6 @@ app.TripView = Backbone.View.extend({
                 });
               }
             };
-
-            // ARTICULATING TRIP FOR TIMELINE PURPOSES - THIS SECTION BELOW NEEDS TO BE IN OWN LOOP STARTING AT NIL
-            //WIKI
-            var fetchWikipediaContent= function() {
-              console.log('Fetching wikipedia content');
-              $.ajax({
-                url: 'http://en.wikipedia.org/w/api.php', 
-                data: {
-                  action: 'parse',
-                  page: place.get('name'),
-                  format: 'json',
-                  prop: 'text',
-                  section: 0
-                },
-                  dataType: 'jsonp',
-              }).done(function(result){processWikipediaContent(result)});
-            };
-
-            var processImages = function(result) {
-              console.log("process")
-              var photo = result.photos.photo[0];
-              var url = [
-                'https://farm',
-                photo.farm,
-                '.staticflickr.com/',
-                photo.server,
-                '/',
-                photo.id,
-                '_',
-                photo.secret,
-                '_n.jpg',
-              ].join('');
-              app.placeImage.attr("style", "background-image: url(" + url + "); background-size: cover; background-position: cover;").attr("id", i)
-            };
-
-            var processWikipediaContent= function (content) {
-              // Pass in success parameter! If successful, return wiki, if unsuccessful, tell the user to discover and see for themselves - save the place to the database description
-              console.log('Processing wikipedia content')
-              var fetchedRawContent = content.parse.text['*'];
-              var $createElement = $('<div>').html(fetchedRawContent);
-              var $introContent = $createElement.find('p');
-              var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
-              app.placeImage = $('<div>').html($displayContent).addClass('placeImage');
-              $('.wiki-container').append(app.placeImage);
-
-              var flickrUrl = 'https://api.flickr.com/services/rest/?jsoncallback=?';
-
-              $.getJSON(flickrUrl, {
-                  method: 'flickr.photos.search',
-                  api_key: '2f5ac274ecfac5a455f38745704ad084',
-                  text: place.get('name'),
-                  format: 'json',
-              }).done(processImages);
-            };
-
-            fetchWikipediaContent();
 
           }
           // Render directions

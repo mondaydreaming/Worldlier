@@ -31,10 +31,11 @@ class TripsController < ApplicationController
 
         @client = GooglePlaces::Client.new("AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI")
 
-        places = @client.spots_by_query("tourist_attractions near #{@trip.location}", :radius => @trip.location_radius)
+        places = @client.spots_by_query("tourist_attractions in #{@trip.location}", :radius => @trip.location_radius, :exclude => 'lodging')
 
         places.sample(@trip.sightsnum).each do |place|
-          p = @trip.places.create :name => place.name, :google_id => place.place_id, :latitude => place.lat, :longitude => place.lng, :photo_url => place.photos[0].fetch_url(800)
+          photo_url = place.photos[0].fetch_url(800)
+          p = @trip.places.create :name => place.name, :google_id => place.place_id, :latitude => place.lat, :longitude => place.lng, :photo_url => photo_url
         end
 
         format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
