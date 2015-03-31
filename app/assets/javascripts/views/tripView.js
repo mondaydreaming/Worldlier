@@ -72,9 +72,9 @@ app.TripView = Backbone.View.extend({
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          app.trips.
+          debugger;
           var tripPlaces = _.sample(results, app.sightsnum);
-          var start = tripPlaces[0].name;
+          var start = tripPlaces[0].name; // HOW TO TRAVERSE TO THE FIRST ELEMENT
           var end = tripPlaces[app.sightsnum-1].name;
           var waypts = [];
           for (var i = 1; i < tripPlaces.length-1 ; i++) {
@@ -147,7 +147,7 @@ app.TripView = Backbone.View.extend({
               destination: end,
               waypoints: waypts,
               optimizeWaypoints: true,
-              travelMode: google.maps.TravelMode.DRIVING // This will be changed to allow for options - Why can't selected Mode work?
+              travelMode: google.maps.TravelMode.WALKING // This will be changed to allow for options - Why can't selected Mode work?
           };
 
           // Why is waypts not saving each tripView[i]????
@@ -164,15 +164,16 @@ app.TripView = Backbone.View.extend({
     })   
   }, 
 
-  placeDetails: function(){
+  placeDetails: function(event){
+    event.preventDefault()
     console.log('firing off place-details click')
     console.log('save places to the database')
     console.log('note savePlace must be made dynamic through google places api')
-    var savePlace = new app.Place({
-      // save dynamic places
-      name: 'Machu Picchu',
-      description: 'Machu Picchu is great and beautiful'
-    })
+    // var savePlace = new app.Place({
+    //   // save dynamic places
+    //   name: 'Machu Picchu',
+    //   description: 'Machu Picchu is great and beautiful'
+    // })
     savePlace.save().done(function(place){
       app.places.add(savePlace);
       app.appRouter.navigate('/places/' + place.id, {trigger:true})
