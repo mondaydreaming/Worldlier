@@ -13,9 +13,9 @@ app.TripView = Backbone.View.extend({
     this.$el.html(html);
 
     var self = this;
+    this.places = new app.Places({trip_id: this.model.get('id')})
 
     app.trips.fetch().done(function(){
-
       //articulating trip
       // Trip parameters
       var trip = app.trips.findWhere({
@@ -72,7 +72,6 @@ app.TripView = Backbone.View.extend({
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          debugger;
           var tripPlaces = _.sample(results, app.sightsnum);
           var start = tripPlaces[0].name; // HOW TO TRAVERSE TO THE FIRST ELEMENT
           var end = tripPlaces[app.sightsnum-1].name;
