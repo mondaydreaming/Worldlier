@@ -15,6 +15,7 @@ app.TripView = Backbone.View.extend({
     var self = this;
 
     app.trips.fetch().done(function(){
+
       //articulating trip
       // Trip parameters
       var trip = app.trips.findWhere({
@@ -65,27 +66,16 @@ app.TripView = Backbone.View.extend({
         types: JSON.parse(tag),
       };
 
-      // setting up wayfinding 
-
-
-
-
-
-
-      // }
-
-////////////////
-
       service = new google.maps.places.PlacesService(map);
       service.nearbySearch(request, callback);
 
+
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+          app.trips.
           var tripPlaces = _.sample(results, app.sightsnum);
-
           var start = tripPlaces[0].name;
           var end = tripPlaces[app.sightsnum-1].name;
-          debugger;
           var waypts = [];
           for (var i = 1; i < tripPlaces.length-1 ; i++) {
             var place = tripPlaces[i]
@@ -97,8 +87,6 @@ app.TripView = Backbone.View.extend({
                 stopover:true
               })  
             }
-
-            // debugger;
 
             // Obtain details for each place
             var detailsRequest = {
@@ -112,12 +100,22 @@ app.TripView = Backbone.View.extend({
             function detailsCallback(place, status) {
               if (status == google.maps.places.PlacesServiceStatus.OK) {
                 //Persist to database
-                var savePlace = new app.Place({
-                  name: place.name,
-                  latitude: place.geometry.location.D,
-                  longitude: place.geometry.location.k 
-                });
-                savePlace.save();
+                // var savePlace = new app.Place({
+                //   name: place.name,
+                //   latitude: place.geometry.location.D,
+                //   longitude: place.geometry.location.k 
+                // });
+                // savePlace.save();
+
+                // Trying to fetch place data out
+                // app.places.fetch().done(function(){
+                //   // How do I limit it for only the one trip? This will fetch all of the places for all trips
+                //   app.places.each(function(place){
+                //   var timelineTemplate = $('#tripPlace-template').html()
+                //   var timelineHTML = _.template(timelineTemplate(place.attributes));
+                //   console.log(place.attributes)
+                //   })
+                // })
 
                 // Render marker
                 var marker = new google.maps.Marker({
@@ -152,7 +150,6 @@ app.TripView = Backbone.View.extend({
               travelMode: google.maps.TravelMode.DRIVING // This will be changed to allow for options - Why can't selected Mode work?
           };
 
-          debugger;
           // Why is waypts not saving each tripView[i]????
           // How can we ensure that the shortest route is found? - at the moment end is just set to the last in the array, not necessarily the furthest away... - it is optimizing based on params we pass in though
 

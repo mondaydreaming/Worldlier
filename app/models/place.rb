@@ -1,4 +1,4 @@
 class Place < ActiveRecord::Base
-  has_and_belongs_to_many :trips
+  belongs_to :trip
   has_many :notes
 end

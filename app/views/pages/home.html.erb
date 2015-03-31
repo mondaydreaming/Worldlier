@@ -11,7 +11,8 @@
     </div>
     <div class="form-group">
       <label for="radius">How far beyond that place do you wish to explore?</label>
-      <input type="number" class="form-control" id="radius">
+      <input type="range" id = 'radius' name="radius" min="0" max="10" onchange="rangevalue.value=value">
+      <h6><output id="rangevalue">5</output> kilometres</h6>
     </div>
     <div class="form-group">
       <label for="place_tag">What type of places are you interested in?</label>
@@ -41,95 +42,40 @@
 
 <!-- Trip overview page -->
 <script id="tripViewTemplate" type= 'text/x-underscore-template'>
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Render trip timeline</h2>
-      <ul class="timeline">
-          <li>
-              <div class="timeline-image">
-                  <a class = "place-details" href="/#places/1"><img class="img-circle img-responsive" alt="INSERT SRC"></a>
-              </div>
-              <div class="timeline-panel">
-                  <div class="timeline-heading">
-                      <h4>2009-2011</h4>
-                      <h4 class="subheading">Our Humble Beginnings</h4>
-                  </div>
-                  <div class="timeline-body">
-                      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-              </div>
-          </li>
-          <li class="timeline-inverted">
-              <div class="timeline-image">
-                  <img class="img-circle img-responsive" alt="INSERT SRC">
-              </div>
-              <div class="timeline-panel">
-                  <div class="timeline-heading">
-                      <h4>March 2011</h4>
-                      <h4 class="subheading">An Agency is Born</h4>
-                  </div>
-                  <div class="timeline-body">
-                      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-              </div>
-          </li>
-          <li>
-              <div class="timeline-image">
-                  <img class="img-circle img-responsive" alt="INSERT SRC">
-              </div>
-              <div class="timeline-panel">
-                  <div class="timeline-heading">
-                      <h4>December 2012</h4>
-                      <h4 class="subheading">Transition to Full Service</h4>
-                  </div>
-                  <div class="timeline-body">
-                      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-              </div>
-          </li>
-          <li class="timeline-inverted">
-              <div class="timeline-image">
-                  <img class="img-circle img-responsive" alt="INSERT SRC">
-              </div>
-              <div class="timeline-panel">
-                  <div class="timeline-heading">
-                      <h4>July 2014</h4>
-                      <h4 class="subheading">Phase Two Expansion</h4>
-                  </div>
-                  <div class="timeline-body">
-                      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-              </div>
-          </li>
-          <li class="timeline-inverted">
-              <div class="timeline-image">
-                  <img class="img-circle img-responsive" alt="INSERT SRC">
-              </div>
-          </li>
-      </ul>    
-    </div>
-  </div>
   <h2>Render trip map and directions </h2>
   <div class='row'>
     <div class="col-md-6 map-directions">
-      <div id="map">
-        <div id="panel">
-          <b>Mode of Travel: </b>
-          <select id="mode" onchange="calcRoute();">
-            <option value="DRIVING">Driving</option>
-            <option value="WALKING">Walking</option>
-            <option value="BICYCLING">Bicycling</option>
-            <option value="TRANSIT">Transit</option>
-          </select>
-        </div>
-      </div>
+      <div id="map"></div>
     </div>
     <div class="col-md-6"
       <div id="directions-panel"></div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Render trip timeline</h2>
+      <ul class="timeline"></ul>    
+    </div>
+  </div>
 </script>
 
+<!-- Render each element on the timeline -->
+<script id="tripPlace-template" type= 'text/x-underscore-template'>
+  <li>
+      <div class="timeline-image">
+          <a class = "place-details" href="/#places/"><img class="img-circle img-responsive" alt=""></a>
+      </div>
+      <div class="timeline-panel">
+          <div class="timeline-heading">
+              <h4>2009-2011</h4>
+              <h4 class="subheading">PLACE NAME</h4>
+          </div>
+          <div class="timeline-body">
+              <p class="text-muted">SCRAPING PARA</p>
+          </div>
+      </div>
+  </li>
+</script>
 
 <!-- List of Trips template -->
 <script id = 'tripListView-template' type='text/x-underscore-template'>

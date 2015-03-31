@@ -8,7 +8,7 @@ app.SearchView = Backbone.View.extend({
   render: function() {
     console.log('rendering search html')
     var html = $('#searchTemplate').html();
-    this.$el.html(html);
+    this.$el.html(html); 
   },
 
   searchTrip: function(event){
@@ -33,5 +33,6 @@ app.SearchView = Backbone.View.extend({
       app.trips.add(saveTrip);
       app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
     })
-  }
+  },
+
 })

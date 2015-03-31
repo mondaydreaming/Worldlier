@@ -27,8 +27,18 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
 
+
     respond_to do |format|
       if @trip.save
+
+        @client = GooglePlaces::Client.new("AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI")
+
+        places = @client.spots(@trip.latitude, @trip.longitude, :types => @trip.tag)
+
+        places.sample(@trip.sightsnum).each do |place|
+          @trip.places.create :name => place.name
+        end
+
         format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
         format.json { render :show, status: :created, location: @trip }
       else
@@ -36,6 +46,7 @@ class TripsController < ApplicationController
         format.json { render json: @trip.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /trips/1

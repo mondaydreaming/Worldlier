@@ -5,7 +5,9 @@ Worldlier::Application.routes.draw do
 
   resources :places
 
-  resources :trips
+  resources :trips do
+    resources :places
+  end
 
   root "pages#home"
   get "home", to: "pages#home", as: "home"
