@@ -16,6 +16,7 @@ app.TripView = Backbone.View.extend({
     this.places = new app.Places({trip_id: this.model.get('id')})
 
     app.trips.fetch().done(function(){
+      
       //articulating trip
       // Trip parameters
       var trip = app.trips.findWhere({
