@@ -21,42 +21,39 @@ app.TripView = Backbone.View.extend({
 
     $.when(tripsFetch, placesFetch).done(function(){
       app.tripPlace = self.places.models
-
-      //WIKI
-        for (var i = 0; i < app.tripPlace.length; i++) {
-          var place = app.tripPlace[i]
-          var fetchWikipediaContent= function() {
-            console.log('Fetching wikipedia content');
-            $.ajax({
-              url: 'http://en.wikipedia.org/w/api.php', 
-              data: {
-                action: 'parse',
-                page: place.get('name'),
-                format: 'json',
-                prop: 'text',
-                section: 0
-              },
-                dataType: 'jsonp',
-            }).done(function(result){processWikipediaContent(result)});
-          };
-
-          var processWikipediaContent= function (content) {
-            // Pass in success parameter! If successful, return wiki, if unsuccessful or if successful but is a redirect, tell the user to discover and see for themselves - save the place to the database description
-            console.log('Processing wikipedia content')
-            var fetchedRawContent = content.parse.text['*'];
-            var $createElement = $('<div>').html(fetchedRawContent);
-            var $introContent = $createElement.find('p');
-            var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
-            var photo_url = place.get('photo_url')
-
-            //need to get attr ids to be dynamic
-            app.placeImage = $('<div>').html($displayContent).addClass('placeImage').attr("id", i).attr("style", "background-image: url(" + photo_url + "); background-size: cover; background-position: cover;")
-            $('.wiki-container').append(app.placeImage);
-
-          };
-
-          fetchWikipediaContent();     
+      
+      for (var i = 0; i < app.tripPlace.length; i++) {
+        var place = app.tripPlace[i]
+        var fetchWikipediaContent= function() {
+          console.log('Fetching wikipedia content');
+          $.ajax({
+            url: 'http://en.wikipedia.org/w/api.php', 
+            data: {
+              action: 'parse',
+              page: place.get('name'),
+              format: 'json',
+              prop: 'text',
+              section: 0
+            },
+              dataType: 'jsonp',
+          }).done(function(result){processWikipediaContent(result)});
         };
+
+        var processWikipediaContent= function (content) {
+          // Pass in success parameter! If successful, return wiki, if unsuccessful or if successful but is a redirect, tell the user to discover and see for themselves - save the place to the database description
+          console.log('Processing wikipedia content')
+          var fetchedRawContent = content.parse.text['*'];
+          var $createElement = $('<div>').html(fetchedRawContent);
+          var $introContent = $createElement.find('p');
+          var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
+          var photo_url = place.get('photo_url')
+
+          //need to get attr ids to be dynamic
+          app.placeImage = $('<div>').html($displayContent).addClass('placeImage').attr("id", i).attr("style", "background-image: url(" + photo_url + "); background-size: cover; background-position: cover;")
+          $('.wiki-container').append(app.placeImage);
+        };
+        fetchWikipediaContent();     
+      };
 
 
       //ARTICULATING TRIP FOR GOOGLE PURPOSES

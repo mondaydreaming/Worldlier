@@ -34,7 +34,9 @@ class TripsController < ApplicationController
         places = @client.spots_by_query("tourist_attractions in #{@trip.location}", :radius => @trip.location_radius, :exclude => 'lodging')
 
         places.sample(@trip.sightsnum).each do |place|
-          photo_url = place.photos[0].fetch_url(800)
+          if place.photos[0]
+            photo_url = place.photos[0].fetch_url(800)
+          end
           p = @trip.places.create :name => place.name, :google_id => place.place_id, :latitude => place.lat, :longitude => place.lng, :photo_url => photo_url
         end
 
