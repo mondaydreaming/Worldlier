@@ -39,12 +39,12 @@ app.TripView = Backbone.View.extend({
       var map = new google.maps.Map(document.getElementById('map'), mapOptions);
       app.currentMap = map;
 
-      // var markerOptions = {
-      //   position: new google.maps.LatLng(lat, lng),
-      // };
+        // var markerOptions = {
+        //   position: new google.maps.LatLng(lat, lng),
+        // };
 
-      // var marker = new google.maps.Marker(markerOptions);
-      // marker.setMap(map);
+        // var marker = new google.maps.Marker(markerOptions);
+        // marker.setMap(map);
 
       // articulating place
       var tag = trip.attributes.tag;
@@ -73,7 +73,6 @@ app.TripView = Backbone.View.extend({
           var waypts = [];
           for (var i = 1; i < tripPlaces.length-1 ; i++) {
             var place = tripPlaces[i]
-            console.log(i, place)
             //For each tripPlace, save as a waypoints
             if ((tripPlaces[i] !== start)|| (tripPlaces[i] !== end)){
               waypts.push({
@@ -91,13 +90,6 @@ app.TripView = Backbone.View.extend({
             // Renders the markers and infowindows
             function detailsCallback(place, status) {
               if (status == google.maps.places.PlacesServiceStatus.OK) {
-                //Persist to database
-                // var savePlace = new app.Place({
-                //   name: place.name,
-                //   latitude: place.geometry.location.D,
-                //   longitude: place.geometry.location.k 
-                // });
-                // savePlace.save();
 
                 // Trying to fetch place data out
                 // app.places.fetch().done(function(){
@@ -126,31 +118,30 @@ app.TripView = Backbone.View.extend({
               }
             }            
           }
+          debugger;
+
           // Render directions
-          var directionsDisplay;
+          var directionsDisplay = new google.maps.DirectionsRenderer();
           var directionsService = new google.maps.DirectionsService();
-          directionsDisplay = new google.maps.DirectionsRenderer();
+
           directionsDisplay.setMap(map);
           directionsDisplay.setPanel(document.getElementById('directions-panel'))
-          // var selectedMode = document.getElementById('mode').value;
 
           var directionsRequest = {
               origin: start,
               destination: end,
               waypoints: waypts,
               optimizeWaypoints: true,
-              travelMode: google.maps.TravelMode.DRIVING // This will be changed to allow for options - Why can't selected Mode work?
+              travelMode: google.maps.TravelMode.DRIVING 
           };
-
-          // Why is waypts not saving each tripView[i]????
-          // How can we ensure that the shortest route is found? - at the moment end is just set to the last in the array, not necessarily the furthest away... - it is optimizing based on params we pass in though
 
           directionsService.route(directionsRequest, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
               var route = response.routes[0];
             }
-          });          
+          });
+
         }
       }
     })   
@@ -158,9 +149,6 @@ app.TripView = Backbone.View.extend({
 
   placeDetails: function(event){
     event.preventDefault()
-    console.log('firing off place-details click')
-    console.log('save places to the database')
-    console.log('note savePlace must be made dynamic through google places api')
     // var savePlace = new app.Place({
     //   // save dynamic places
     //   name: 'Machu Picchu',
