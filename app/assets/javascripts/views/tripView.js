@@ -23,8 +23,8 @@ app.TripView = Backbone.View.extend({
       app.tripPlace = self.places.models
       
       for (var i = 0; i < app.tripPlace.length; i++) {
-        var place = app.tripPlace[i]
         var fetchWikipediaContent= function() {
+          var place = app.tripPlace[i]
           console.log('Fetching wikipedia content');
           $.ajax({
             url: 'http://en.wikipedia.org/w/api.php', 
@@ -36,10 +36,10 @@ app.TripView = Backbone.View.extend({
               section: 0
             },
               dataType: 'jsonp',
-          }).done(function(result){processWikipediaContent(result)});
+          }).done(function(result){processWikipediaContent(result, place)});
         };
 
-        var processWikipediaContent= function (content) {
+        var processWikipediaContent= function (content, place) {
           // Pass in success parameter! If successful, return wiki, if unsuccessful or if successful but is a redirect, tell the user to discover and see for themselves - save the place to the database description
           console.log('Processing wikipedia content')
           var fetchedRawContent = content.parse.text['*'];
@@ -47,10 +47,12 @@ app.TripView = Backbone.View.extend({
           var $introContent = $createElement.find('p');
           var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
           var photo_url = place.get('photo_url')
-
           //need to get attr ids to be dynamic
-          app.placeImage = $('<div>').html($displayContent).addClass('placeImage').attr("id", i).attr("style", "background-image: url(" + photo_url + "); background-size: cover; background-position: cover;")
-          $('.wiki-container').append(app.placeImage);
+          var placeImage = $('<div>').html($displayContent).addClass('placeImage').attr("style", "background-image: url(" + photo_url + "); background-size: cover; background-position: cover;")
+          //app.placeImage.attr('id',i)
+          $('.wiki-container').append(placeImage);
+          debugger;
+
         };
         fetchWikipediaContent();     
       };
