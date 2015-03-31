@@ -30,7 +30,6 @@ app.SearchView = Backbone.View.extend({
     });
     saveTrip.save().done(function(trip){
       app.trips.add(saveTrip);
-      debugger;
       app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
     })
   },
