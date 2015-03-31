@@ -39,12 +39,12 @@ app.TripView = Backbone.View.extend({
       var map = new google.maps.Map(document.getElementById('map'), mapOptions);
       app.currentMap = map;
 
-      var markerOptions = {
-        position: new google.maps.LatLng(lat, lng)
-      };
+      // var markerOptions = {
+      //   position: new google.maps.LatLng(lat, lng),
+      // };
 
-      var marker = new google.maps.Marker(markerOptions);
-      marker.setMap(map);
+      // var marker = new google.maps.Marker(markerOptions);
+      // marker.setMap(map);
 
       // articulating place
       var tag = trip.attributes.tag;
@@ -69,7 +69,6 @@ app.TripView = Backbone.View.extend({
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           var tripPlaces = self.places.models
           var start = tripPlaces[0].get('name');
-          debugger;
           var end = tripPlaces[app.sightsnum-1].get('name');
           var waypts = [];
           for (var i = 1; i < tripPlaces.length-1 ; i++) {
@@ -84,9 +83,8 @@ app.TripView = Backbone.View.extend({
             }
             // Obtain details for each place
             var detailsRequest = {
-              placeId: place.place_id
+              placeId: place.get('google_id')
             };
-
             var infowindow = new google.maps.InfoWindow();
             service.getDetails(detailsRequest, detailsCallback);
 
@@ -141,7 +139,7 @@ app.TripView = Backbone.View.extend({
               destination: end,
               waypoints: waypts,
               optimizeWaypoints: true,
-              travelMode: google.maps.TravelMode.WALKING // This will be changed to allow for options - Why can't selected Mode work?
+              travelMode: google.maps.TravelMode.DRIVING // This will be changed to allow for options - Why can't selected Mode work?
           };
 
           // Why is waypts not saving each tripView[i]????

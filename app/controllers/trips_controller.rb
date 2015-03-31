@@ -34,7 +34,7 @@ class TripsController < ApplicationController
         places = @client.spots(@trip.latitude, @trip.longitude, :types => JSON.parse(@trip.tag))
 
         places.sample(@trip.sightsnum).each do |place|
-          p = @trip.places.create :name => place.name
+          p = @trip.places.create :name => place.name, :google_id => place.place_id, :latitude => place.lat, :longitude => place.lng
         end
 
         format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
