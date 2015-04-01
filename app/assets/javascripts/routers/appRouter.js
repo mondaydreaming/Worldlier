@@ -2,7 +2,7 @@ var app = app || {};
 
 app.AppRouter = Backbone.Router.extend ({
   routes: {
-    '' : 'index',
+    '' : 'viewSearchPage',
     'search': 'viewSearchPage',
     'trips' : 'viewTripsList',
     'trips/:id' : 'viewTrip',

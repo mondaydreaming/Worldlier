@@ -8,9 +8,10 @@ class PagesController < ApplicationController
   end
 
   def inside
+    redirect_to '/'
   end
   
-def posts
+  def posts
     @posts = Post.published.page(params[:page]).per(10)
   end
   
