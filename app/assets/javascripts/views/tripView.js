@@ -79,19 +79,19 @@ app.TripView = Backbone.View.extend({
       // Drawing map for trip
       var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
-          zoom: 12,
+          zoom: 8,
           mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
       var map = new google.maps.Map(document.getElementById('map'), mapOptions);
       app.currentMap = map;
 
-        // var markerOptions = {
-        //   position: new google.maps.LatLng(lat, lng),
-        // };
+        var markerOptions = {
+          position: new google.maps.LatLng(lat, lng),
+        };
 
-        // var marker = new google.maps.Marker(markerOptions);
-        // marker.setMap(map);
+        var marker = new google.maps.Marker(markerOptions);
+        marker.setMap(map);
 
       // articulating place
       var tag = trip.attributes.tag;
