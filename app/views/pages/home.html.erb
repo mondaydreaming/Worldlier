@@ -1,5 +1,8 @@
 <!-- This is where the single page app gets rendered -->
-<div id="main"></div>
+<div id="main">
+  <div id="mapdiv" style="width: 100%; height: 600px;"></div>
+  
+</div>
 
 <!-- Search Page -->
 <script id="searchTemplate" type= 'text/x-underscore-template'>
@@ -86,7 +89,6 @@
 
 <script id = 'tripListView-template' type='text/x-underscore-template'>
 <!-- list of places page -->
-  <div id="mapdiv" style="width: 600px; height: 400px;"></div>
   <h3> {{ location }} </h3>
 </script>
 

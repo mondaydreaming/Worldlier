@@ -110,7 +110,6 @@ app.TripView = Backbone.View.extend({
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          debugger;
           var start = app.tripPlace[0].get('name');
           var end = app.tripPlace[app.sightsnum-1].get('name');
           var waypts = [];
