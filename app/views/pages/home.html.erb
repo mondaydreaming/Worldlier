@@ -1,7 +1,6 @@
 <!-- This is where the single page app gets rendered -->
 <div id="main">
   <div id="mapdiv" style="width: 100%; height: 600px;"></div>
-  
 </div>
 
 <!-- Search Page -->
@@ -53,43 +52,25 @@
 
 <!-- Trip overview page -->
 <script id="tripViewTemplate" type= 'text/x-underscore-template'>
-  <h2>Render trip map and directions </h2>
+  <h2> Oh the places we will go... </h2>
   <div class='row'>
     <div class="col-md-12 map-directions">
       <div id="map"></div>
     </div>
   </div>
+  <br>
   <div class="row">
     <div class="col-md-12">
-      <h2>Render trip timeline</h2>
+      <h2 class = 'text-right'>What have I signed up for? </h2>
       <div class="wiki-container"></div>
-      <ul class="timeline"></ul>    
     </div>
   </div>
 </script>
-<!-- Render each element on the timeline -->
-<script id="tripPlace-template" type= 'text/x-underscore-template'>
-  <li>
-      <div class="timeline-image">
-          <a class = "place-details" href="/#"><img class="img-circle img-responsive" alt=""></a>
-      </div>
-      <div class="timeline-panel">
-          <div class="timeline-heading">
-              <h4>2009-2011</h4>
-              <h4 class="subheading">PLACE NAME</h4>
-          </div>
-          <div class="timeline-body">
-              <p class="text-muted">SCRAPING PARA</p>
-          </div>
-      </div>
-  </li>
-</script>
 
 <!-- List of Trips template -->
-
 <script id = 'tripListView-template' type='text/x-underscore-template'>
 <!-- list of places page -->
-  <h3> {{ location }} </h3>
+  <h3 class= 'trip-listing'> <a href="/#trips/{{id}}">{{ location }} // </a></h3>
 </script>
 
 <!-- Detailed Place page -->

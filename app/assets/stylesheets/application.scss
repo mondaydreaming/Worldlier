@@ -15,6 +15,11 @@
   border-radius: 10px;
 }
 
+.trip-listing {
+  display: inline;
+
+}
+
 #mapdiv{
   margin-top: 5%;
   margin-bottom: 5%;
@@ -31,10 +36,12 @@
 }
 
 .placeImage {
-    height: 900px;
+    height: 600px;
     width: 100%;
-    margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 10px;
+    background-image: url('assets/images/background-img');
+    background-color: rgba(0,128,128, 0.5);
 }
 
 .imageHeading {
@@ -5991,7 +5998,8 @@ a.active {
 }
 
 a {
-    color: #009688;
+  color: #ab6361;
+  font-weight: bold
 }
 
 a:hover,

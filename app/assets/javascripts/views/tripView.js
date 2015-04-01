@@ -49,7 +49,11 @@ app.TripView = Backbone.View.extend({
           }
           var $createElement = $('<div>').html(fetchedRawContent);
           var $introContent = $createElement.find('p');
+          $('a[href^="/wiki/"]').each(function (i, e) {
+            $(e).attr('href', 'http://en.wikipedia.org' + $(e).attr('href'));
+          });
           var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
+          var dividers = $('<span>').html('glyphicon glyphicon-send')
           var photo_url = place.get('photo_url')
           //need to get attr ids to be dynamic
           var placeImage = $('<div>').html($displayContent).addClass('placeImage').attr("style", "background-image: url(" + photo_url + "); background-size: cover; background-position: cover;")

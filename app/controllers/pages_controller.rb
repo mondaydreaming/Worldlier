@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   ]
 
   def home
+    # redirect_to '/#search'
   end
 
   def inside
