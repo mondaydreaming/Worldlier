@@ -9,9 +9,11 @@ app.TripListView = Backbone.View.extend({
 
   render: function() {
     console.log('triplistview.js is being rendered')
+    debugger;
       // Generating a new trip
       // add all your code to this method, as this will ensure that page is loaded
-    AmCharts.ready(function() {
+    //AmCharts.ready(function() {
+      console.log('Am ready')
       // create AmMap object
       var map = new AmCharts.AmMap();
       // set path to images
@@ -44,10 +46,12 @@ app.TripListView = Backbone.View.extend({
 
       // let's say we want a small map to be displayed, so let's create it
       map.smallMap = new AmCharts.SmallMap();
-      
-      // write the map to container div
-      map.write("mapdiv");
 
+      // write the map to container div
+      if ($('#mapdiv').length === 0) {
+        $('#main').html('<div id="mapdiv" style="width: 100%; height: 600px;"></div>')
+      }
+      map.write("mapdiv");
       var isoCountries = [
         ['AF', 'Afghanistan'],
         ['AX', 'Aland Islands'],
@@ -317,7 +321,7 @@ app.TripListView = Backbone.View.extend({
           app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
         })
       }
-    });
+    // });
 
     // Appending previous trips
     var self = this

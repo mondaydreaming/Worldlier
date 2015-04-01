@@ -16,7 +16,6 @@ app.AppRouter = Backbone.Router.extend ({
   },
 
   viewTripsList :function() {
-    console.log('viewTripsList function is being called')
     var trips = app.trips
     var tripListView = new app.TripListView({collection: trips})
     tripListView.render()
