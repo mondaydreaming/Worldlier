@@ -298,10 +298,22 @@ app.TripListView = Backbone.View.extend({
           var isoIndex = isoCountries[i][0]
           var countryName = isoCountries[i][1]
           if (event.mapObject.id == isoIndex) {
-            console.log('working')
+            setInterval(createTrip(countryName), 3000)
           }          
         };
       });
+
+      var createTrip = function(countryName){
+        console.log('this is also working ' + countryName)
+        var saveTrip = new app.Trip ({
+          sightsnum: 5,
+          location: countryName,
+        });
+        saveTrip.save().done(function(trip){
+          app.trips.add(saveTrip);
+          app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
+        })
+      }
 
       // write the map to container div
       map.write("mapdiv");
