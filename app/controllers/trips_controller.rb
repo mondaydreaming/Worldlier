@@ -31,7 +31,7 @@ class TripsController < ApplicationController
 
         @client = GooglePlaces::Client.new("AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI")
 
-        places = @client.spots_by_query("tourist_attractions in #{@trip.location}", :radius => @trip.location_radius, :exclude => 'lodging')
+        places = @client.spots_by_query("tourist_attractions within #{@trip.location}", :radius => @trip.location_radius, :exclude => 'lodging')
 
         places.sample(@trip.sightsnum).each do |place|
           if place.photos[0]

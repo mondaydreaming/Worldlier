@@ -43,7 +43,10 @@ app.TripView = Backbone.View.extend({
         var processWikipediaContent= function (content, place) {
           // Pass in success parameter! If successful, return wiki, if unsuccessful or if successful but is a redirect, tell the user to discover and see for themselves - save the place to the database description
           console.log('Processing wikipedia content')
-          var fetchedRawContent = content.parse.text['*'];
+          var fetchedRawContent
+          if ( content.parse ) {
+            fetchedRawContent = content.parse.text['*'];
+          }
           var $createElement = $('<div>').html(fetchedRawContent);
           var $introContent = $createElement.find('p');
           var $displayContent = $('<div>').html($introContent).addClass('placeDetails')
@@ -107,6 +110,7 @@ app.TripView = Backbone.View.extend({
 
       function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+          debugger;
           var start = app.tripPlace[0].get('name');
           var end = app.tripPlace[app.sightsnum-1].get('name');
           var waypts = [];

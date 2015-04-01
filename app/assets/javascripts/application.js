@@ -15,5 +15,6 @@
 //= require underscore
 //= require backbone
 //= require bootstrap
+//= require ammap
 //= require_tree ./models
 //= require_tree .
