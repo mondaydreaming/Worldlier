@@ -44,6 +44,9 @@ app.TripListView = Backbone.View.extend({
 
       // let's say we want a small map to be displayed, so let's create it
       map.smallMap = new AmCharts.SmallMap();
+      
+      // write the map to container div
+      map.write("mapdiv");
 
       var isoCountries = [
         ['AF', 'Afghanistan'],
@@ -314,9 +317,6 @@ app.TripListView = Backbone.View.extend({
           app.appRouter.navigate('/trips/' + trip.id, {trigger:true})
         })
       }
-
-      // write the map to container div
-      map.write("mapdiv");
     });
 
     // Appending previous trips
