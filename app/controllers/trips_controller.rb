@@ -29,7 +29,7 @@ class TripsController < ApplicationController
     respond_to do |format|
       if @trip.save
 
-        @client = GooglePlaces::Client.new("AIzaSyDslRFZO4CcrhN9M9gchkS0VKLWrOB8J_Y")
+        @client = GooglePlaces::Client.new("AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI")
 
         places = @client.spots_by_query("tourist_attractions in #{@trip.location}", :radius => @trip.location_radius, :exclude => 'lodging')
 

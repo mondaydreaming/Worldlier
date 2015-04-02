@@ -1,24 +1,36 @@
-# README
+# **[Worldlier](https://worldlier.herokuapp.com)**
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##Problem
 
-Things you may want to cover:
+No ideas for what to do while out and about?
 
-* Ruby version
+Need travel inspiration?
 
-* System dependencies
+##The Solution 
 
-* Configuration
+An itinerary generator based on a few basic facts that you provide
 
-* Database creation
+##Sore bits
 
-* Database initialization
+Working in Backbone and JavaScript on a grand scale properly for the first time!
 
-* How to run the test suite
+##Cool beans
 
-* Services (job queues, cache servers, search engines, etc.)
+Using Ammap to automatically generate trips
 
-* Deployment instructions
+##What's next?
 
-* ...
+Refine the way that the Google algorithm is used to optimise search results
+
+Determine other options for pulling in photos
+
+
+##Credits
+
+Worldlier was developed by Bishin Ho for project three of the Web Development Immersive Eight course at General Assembly, Sydney.
+
+##Thank you!
+
+Massive thanks to Joel Turnbull and Jack Jeffress at General Assembly, Sydney, for their incredible debugging and advice. 
+
+An additional thanks to Joel for reminding me to put together this readme file.
