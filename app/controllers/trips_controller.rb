@@ -29,11 +29,14 @@ class TripsController < ApplicationController
     respond_to do |format|
       if @trip.save
 
-        @client = GooglePlaces::Client.new("AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI")
+        @client = GooglePlaces::Client.new("AIzaSyDslRFZO4CcrhN9M9gchkS0VKLWrOB8J_Y")
 
-        places = @client.spots_by_query("tourist_attractions in #{@trip.location}", :radius => @trip.location_radius, :exclude => 'lodging')
+        # @attractions = JSON.parse(@trip.tag).join(' ')
+        places = @client.spots_by_query("tourist landmark in #{@trip.location} ", :radius => @trip.location_radius, :exclude => 'lodging')
 
-        places.sample(@trip.sightsnum).each do |place|
+        # https://maps.googleapis.com/maps/api/place/textsearch/json?query=points+of+interest+for+tourists+in+aberdeen&radius=5000&key=AIzaSyCsJcCSDOx5fdOlmWagQZabLeAe6EGxNSI
+
+        places.take(@trip.sightsnum).each do |place|
           if place.photos[0]
             photo_url = place.photos[0].fetch_url(800)
           end

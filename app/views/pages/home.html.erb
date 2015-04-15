@@ -19,27 +19,10 @@
           <input type="range" id = 'radius' name="radius" min="0" max="10" onmousemove="rangevalue.value=value">
           <h6><output id="rangevalue">5</output> kilometres</h6>
         </div>
-        <div class="form-group">
-          <label for="place_tag">What type of places are you interested in?</label>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="park aquarium zoo"> One with nature
-              </label>
-            </div> 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="art_gallery museum"> Get cultural
-              </label>
-            </div> 
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="amusement_park"> Thrills and spills
-              </label>
-            </div>                 
-        </div> 
+
         <div class="form-group">
           <label for="number_sights">How many places do you wish to visit?</label>
-          <input type="number" class="form-control" id="number_sights">
+          <input type="number" class="form-control" id="number_sights" min="1" max="10">
         </div>     
         <button class="search btn btn-teal">Create Trip</button>
       </form>
@@ -49,6 +32,32 @@
 </div>
 
 </script>
+
+<!-- Refining search -->
+<!--         <div class="">
+          <label for="place_tag">What type of places are you interested in?</label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="landmark park"> One with nature
+              </label>
+            </div> 
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="art_gallery museum"> Get cultural
+              </label>
+            </div> 
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="historical landmark"> History mystery
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="tourist landmark"> The classics
+              </label>
+            </div>                  
+        </div>  -->
+
 
 <!-- Trip overview page -->
 <script id="tripViewTemplate" type= 'text/x-underscore-template'>
